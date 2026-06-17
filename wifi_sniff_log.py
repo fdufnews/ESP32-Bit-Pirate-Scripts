@@ -1,25 +1,25 @@
 #
-# Sniff and log all bluetooth packets with timestamp.
+# Sniff and log all WiFi packets with timestamp.
 # This script records all packets received during the defined duration.
 # The file will be saved in the current directory
 #
 
 duration = 600  # Duration of the sniffing in seconds
 
-from bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 import time
 import os
 
-# Connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 bp.start()
 
-# Change to Bluetooth mode
-bp.change_mode("bluetooth")
+# Change to WiFi mode
+bp.change_mode("wifi")
 
 # Prepare log file (current directory)
 timestamp = int(time.time())
-filename = f"bluetooth_sniff_log_{timestamp}.txt"
+filename = f"wifi_sniff_log_{timestamp}.txt"
 filepath = os.path.join(os.getcwd(), filename)
 
 # Start sniffing

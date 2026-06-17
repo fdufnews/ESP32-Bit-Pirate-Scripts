@@ -1,8 +1,8 @@
-from bus_pirate.bus_pirate import BusPirate
-from bus_pirate.bus_pirate_wifi import BusPirateWifi
+from bitpirate import BitPirate
+from bitpirate import BitPirateWifi
 
-# Small helper to connect to a UART port on the Bus Pirate.
-def connect_uart(bp: BusPirate | BusPirateWifi, rx_pin: int, tx_pin: int,
+# Small helper to connect to a UART port on the Bit Pirate.
+def connect_uart(bp: BitPirate | BitPirateWifi, rx_pin: int, tx_pin: int,
     baudrate: int = 115200, bits = 8, parity = "N", stop = 1, inverted: bool = False):
     bp.send("mode uart")
     received = bp.receive()
@@ -23,7 +23,7 @@ def connect_uart(bp: BusPirate | BusPirateWifi, rx_pin: int, tx_pin: int,
     print(bp.receive())
 
 if __name__ == "__main__":
-    # Connect to the Bus Pirate
-    bp = BusPirateWifi("192.168.0.57")
+    # Connect to the Bit Pirate
+    bp = BitPirateWifi("192.168.0.57")
     bp.start()
     connect_uart(bp, 43, 44, 57600, 8, "N", 1, False)

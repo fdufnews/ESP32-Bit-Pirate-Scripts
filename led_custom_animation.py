@@ -3,7 +3,7 @@
 # This example uses a moving light effect with a trailing tail.
 #
 
-from  bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 import time
  
  ##################################################
@@ -18,8 +18,8 @@ delay = 0.1                   # Delay between each frame (in seconds)
 cycles = 3                    # How many times to go back and forth
 ##################################################
 
-# Connect to Bus Pirate 
-bp = BusPirate.auto_connect()
+# Connect to Bit Pirate 
+bp = BitPirate.auto_connect()
 bp.start()
 
 # Change to LED mode

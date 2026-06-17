@@ -1,2 +1,1 @@
-pyserial>=3.5
-websocket-client>=1.6.0
+bit-pirate>=0.1.0,<1.0.0

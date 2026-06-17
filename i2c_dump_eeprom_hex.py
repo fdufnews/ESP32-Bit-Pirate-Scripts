@@ -1,10 +1,10 @@
 # 
-# Dump the contents of an I2C EEPROM in a file (bin format)
+# Dump the contents of an I2C EEPROM in a file (hex/ascii format)
 # Please provide the "addr" and "eeprom" variables below
 # The file will be saved in the current directory
 #
 
-from bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 import os, time
 
 # Supported EEPROM Ids
@@ -32,11 +32,8 @@ addr = 0x50
 eeprom = EEPROM_24X64
 ############################################################
 
-# End markers for parsing
-END_MARKER = b"=== I2C EEPROM Shell ==="
-
-# Connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 bp.start()
 
 bp.send("8") # quit eeprom shell in case already in it
@@ -52,28 +49,34 @@ bp.wait()
 bp.send(str(eeprom))
 bp.wait()
 bp.receive()  # Clear echoes
-bp.send("6")  # 6 is the dump raw eeprom index
-bp.wait()
-bp.send("y") # confirm
-bp.clear_echoes(2)
+bp.send("5")  # 5 is the dump eeprom index
+bp.clear_echoes()
 bp.wait()
 
 # Read the EEPROM
 print("Reading I2C EEPROM. It may take some time...")
-response = bp.receive_raw(2)
+response = bp.receive_all()
+
+# Clean up the response
+cleaned = []
+for line in response:
+    if "=== I2C EEPROM Shell ===" in line:
+        break
+    cleaned.append(line)
+
+# Display the dump
+print("EEPROM Dump:")
+for line in cleaned:
+    print(line)
 
 # Output path
 timestamp = time.time()
-output_path = os.path.join(os.getcwd(), f"i2c_eeprom_{timestamp}.bin")
-
-## Clean up the response
-pos_end = response.find(END_MARKER)
-if pos_end != -1:
-    response = response[:pos_end]
+output_path = os.path.join(os.getcwd(), f"i2c_eeprom_{timestamp}.hexdump")
 
 # Write to the file
-with open(output_path, "wb") as f:
-    f.write(response)
+with open(output_path, "w") as f:
+    for line in cleaned:
+        f.write(line + "\n")
 
 print(f"\nDump save at: {output_path}")
 

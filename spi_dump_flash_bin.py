@@ -3,14 +3,14 @@
 # The file will be saved in the current directory
 #
 
-from bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 import os, time
 
 # End markers for parsing
 END_MARKER = b"=== SPI Flash Shell ==="
 
-# Connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 bp.start()
 
 bp.send("9") # quit flash shell in case already in it

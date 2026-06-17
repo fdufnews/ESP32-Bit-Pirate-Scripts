@@ -1,8 +1,33 @@
-# ESP32 Bus Pirate Scripts
+# ESP32 Bit Pirate Scripts
 
-![Bus Pirate Scripts](bus_pirate_scripts.png)
+![Bit Pirate Scripts](https://github.com/geo-tp/ESP32-Bit-Pirate/raw/pioarduino/images/bus_pirate_scripts.png)
 
-A collection of **easy-to-use** Python scripts to control the [**ESP32 Bus Pirate**](https://github.com/geo-tp/ESP32-Bus-Pirate) via USB serial interface. Now also supports WiFi connection.
+A collection of **easy-to-use** Python scripts to control the [**ESP32 Bus Pirate**](https://github.com/geo-tp/ESP32-Bus-Pirate) via USB serial interface, WiFi or BPIO adapter.;
+
+## Install
+
+Install from the repository:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Or install the Bit Pirate package directly from PyPI:
+
+```bash
+python -m pip install bit-pirate
+```
+
+## Usage
+
+Run scripts:
+
+```bash
+python wifi_networks_log.py
+```
+
 
 ## Scripts
 
@@ -26,87 +51,17 @@ A collection of **easy-to-use** Python scripts to control the [**ESP32 Bus Pirat
 | `dio_wait_and_pulse.py`  | Wait for a defined pin to go LOW to send a pulse |
 | `gps_util.py` | Parse NMEA packets from a UBlox M10 GPS module hooked up to a Bus Pirate |
 
-**Each script:**
-- Auto-detects the ESP32 Bus Pirate
-- Switches to the correct mode automatically
-- Logs output to console and/or file
-- Save the output file in the current directory
 
-## Requirements
-
-- Python 3.7 or higher
-- `pyserial` Python library
-
-Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
----
-
-##  Getting Started
-
-1. Download the scripts folder
-2. Plug in your Bus Pirate device via USB serial
-3. Run any script using Python:
-```bash
-python3 wifi_scan_log.py
-```
-
-**Note:** If needed, you can manually configure the pin via serial for any mode before launching the script.
-
-## Create Your Script
-
-The `BusPirate` class abstracts serial communication and provides methods like:
-
-### Serial Connection:
+## Creating a script
 
 ```python
-from bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 
-bp = BusPirate.auto_connect()  # Auto-detect the ESP32 Bus Pirate
-bp.start()                     # Init connection + clear 
-bp.change_mode("dio")          # Switch to I2C, UART, WiFi, etc.
-bp.send("set 1 LOW")           # Send a command (string)
-bp.wait()                      # Wait for response (default 300ms)
-lines = bp.receive()           # Read lines from the device
-lines = bp.receive_all(2)      # Read lines from the device until a given silent time
-bp.stop()                      # Close connection
-```
-
-### WiFi Connection:
-
-```python
-from bus_pirate.bus_pirate_wifi import BusPirateWifi
-
-bp = BusPirateWifi("192.168.4.1")
+bp = BitPirate.auto_connect()
 bp.start()
-bp.change_mode("uart")
-bp.send("read")
-response = bp.receive()
+bp.change_mode("i2c")
+bp.send("scan")
+bp.wait()
+print(bp.receive())
 bp.stop()
 ```
-
-Additional `Helper` class to parse and manipulate response from the ESP32 Bus Pirate.
-
-
-## Project Structure
-
-```
-scripts/
-│
-├── bus_pirate/        # Bus Pirate class
-│   ├── bus_pirate.py
-│   ├── bus_pirate_wifi.py
-│   └── helper.py
-│
-├── wifi_script_definition.py
-│
-├── bluetooth_script_definiton.py
-│
-├── ...
-
-```
-
-
----

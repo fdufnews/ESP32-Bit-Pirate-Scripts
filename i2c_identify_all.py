@@ -2,11 +2,11 @@
 # Scan and identify all I2C devices on the bus
 #
 
-from bus_pirate.bus_pirate import BusPirate
-from bus_pirate.helper import Helper
+from bitpirate import BitPirate
+from bitpirate import Helper
 
-# Connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 bp.start()
 
 # Change to I2C mode

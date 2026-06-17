@@ -1,12 +1,12 @@
-# Parse NMEA packets from a UBlox M10 GPS module hooked up to a Bus Pirate.
+# Parse NMEA packets from a UBlox M10 GPS module hooked up to a Bit Pirate.
 
-from bus_pirate.bus_pirate_wifi import BusPirateWifi
+from bitpirate import BitPirateWifi
 import time
 import os
 import pynmea2 # pip install pynmea2
 from uart_connect_helper import connect_uart
-# Connect to the Bus Pirate
-bp = BusPirateWifi("192.168.0.57")
+# Connect to the Bit Pirate
+bp = BitPirateWifi("192.168.0.57")
 bp.start()
 
 connect_uart(bp, tx_pin=43, rx_pin=44, baudrate=115200, bits=8, parity="N", stop=1, inverted=False)

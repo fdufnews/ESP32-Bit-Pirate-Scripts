@@ -6,12 +6,12 @@
 
 duration = 600  # Duration of the logging in seconds
 
-from bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 import time
 import os
 
-# Connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 bp.start()
 
 # Change to UART mode

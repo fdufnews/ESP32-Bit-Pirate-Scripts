@@ -28,11 +28,11 @@ EEPROM_25XM04 = 14
 eeprom = EEPROM_25X256
 ###########################################
 
-from bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 import os, time
 
-# Connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 bp.start()
 
 bp.send("8") # quit flash shell in case already in it

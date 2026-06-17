@@ -2,10 +2,10 @@
 # Send device-b-gone (off all devices) command endlessly.
 #
 
-from bus_pirate.bus_pirate import BusPirate
+from bitpirate import BitPirate
 
-# Connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 bp.start()
 
 # Change to Infrared mode

@@ -2,13 +2,13 @@
 # Scan and send deauth to all WiFi networks found
 #
 
-from bus_pirate.bus_pirate import BusPirate
-from bus_pirate.helper import Helper
+from bitpirate import BitPirate
+from bitpirate import Helper
 
-# Search and connect to the Bus Pirate
-bp = BusPirate.auto_connect()
+# Search and connect to the Bit Pirate
+bp = BitPirate.auto_connect()
 
-# Initialize the Bus Pirate
+# Initialize the Bit Pirate
 bp.start()
 
 # Change to WiFi mode
